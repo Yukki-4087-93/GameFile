@@ -43,19 +43,16 @@ public:
 	void BubbleSort(int nSort);								//ソート処理
 	void Save();											//ファイル保存
 	void Load();											//ファイル呼び出し
-	static CBg* GetBg();									//背景の情報取得
-	static CScore* GetScore();								//スコアの情報取得
-	static CUi* GetUi();									//ユーザーインターフェースの取得
 
 private:
+	static CBg* m_pBg;										//背景のポインター
+	static CScore* m_pScore;								//スコアのポインター
+	static CUi* m_pUi;										//ユーザーインターフェースのポインター
 	static int m_nBox;										//ランキングの値を受け取る変数
 	int m_nRankUpdate;										//更新ランクNo.
 	int m_nCountState;										//ランキングスコアの状態カウンター
 	int m_nScoreState;										//ランキングスコアの状態情報
 	int m_SortData[MAX_RANKING];							//ソートしたものを受け取る変数
-	static CBg* m_pBg;										//背景のポインター
-	static CScore* m_pScore;								//スコアのポインター
-	static CUi* m_pUi;										//ユーザーインターフェースのポインター
 };
 
 #endif // !_RANKING_H_

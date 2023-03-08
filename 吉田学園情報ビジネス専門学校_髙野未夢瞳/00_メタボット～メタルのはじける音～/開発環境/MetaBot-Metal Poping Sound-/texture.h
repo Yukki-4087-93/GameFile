@@ -29,6 +29,7 @@ public: /* 定義 */
 		TEXTURE_RESULT_DEATH,				// 死亡時のリザルト
 		TEXTYRE_RANKING_BG,					// ランキングの背景
 		TEXTURE_RANKING_BUMMBER,			// ランキングの位
+		TEXTURE_RANKING_NOW_UI,
 		TEXTURE_SKY,						// スカイボックスに貼る
 		TRXTURE_EFFECT,						// エフェクト用
 		TEXTURE_DAMAGE_INSIGNIFICANT,		// ダメージ(軽微)
@@ -38,9 +39,9 @@ public: /* 定義 */
 		TEXTURE_EAT_ME,						// チュートリアル
 		TEXTURE_DISCRIPTION,				// チュートリアル
 		TEXTURE_ARROW,						// チュートリアル
-		TEXTURE_DISCRIPTION2,						// チュートリアル
-		TEXTURE_TITLE_LOGO,						// チュートリアル
-		TEXTURE_RESULT_LOGO,						// チュートリアル
+		TEXTURE_DISCRIPTION2,				// チュートリアル
+		TEXTURE_TITLE_LOGO,					// チュートリアル
+		TEXTURE_RESULT_LOGO,				// チュートリアル
 		TEXTURE_MAX,						// 最大
 	};
 

@@ -174,7 +174,7 @@ void CScore::Update()
 
 	if (CApplication::GetKyeboard()->GetkeyboardPress(DIK_7))
 	{//UƒL[‚ª‰Ÿ‚³‚ê‚½‚ç
-		Add(100);
+		Add(10000);
 	}
 
 #endif // _DEBUG

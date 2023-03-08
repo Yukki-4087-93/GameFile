@@ -38,9 +38,12 @@ int CRanking::m_nBox;
 CRanking::CRanking()
 {
 	for (int i = 0; i < MAX_RANKING; i++)
-	{
+	{//データをクリアする
 		m_SortData[i] = {};
+		m_pScore = {};
 	}
+
+	m_nRankUpdate = 0;		//ランキングを更新するための変数のクリア
 }
 
 //--------------------------------------
@@ -55,19 +58,27 @@ CRanking::~CRanking()
 //--------------------------------------
 HRESULT CRanking::Init()
 {
-	Load();
-	BubbleSort(m_nBox);
-	Save();
+	Load();					//読み込み
+	BubbleSort(m_nBox);		//ソートデータ
+	Save();					//保存
 
+	//背景の生成
 	m_pBg = CBg::Create(D3DXVECTOR3(1280.0f / 2, 720.0f / 2, 0.0f), 1280.0f, 720.0f, CTexture::TEXTURE::TEXTYRE_RANKING_BG);
 
+	//UIの生成
 	m_pUi = CUi::Create(D3DXVECTOR3(360.0f, 383.0f, 0.0f), 80.0f, 600.0f, CTexture::TEXTURE::TEXTURE_RANKING_BUMMBER);
 
 	for (int i = 0; i < MAX_RANKING; i++)
-	{
-		m_pScore = CScore::Create(D3DXVECTOR3(620.0f + 40.0f * i, 137.0f + 123.0f * i, 0.0f), m_SortData[i]);
+	{//ランキングを表示する
+		m_pScore = CScore::Create(D3DXVECTOR3(520.0f + 40.0f * i, 137.0f + 123.0f * i, 0.0f), m_SortData[i]);
 	}
-	
+
+	//UIの生成
+	m_pUi = CUi::Create(D3DXVECTOR3(980.0f, 107.0f, 0.0f), 200.0f, 400.0f, CTexture::TEXTURE::TEXTURE_RANKING_NOW_UI);
+
+	//取得したスコアを表示する
+	m_pScore = CScore::Create(D3DXVECTOR3(920.0f, 157.0f, 0.0f), m_nBox);
+
 	//サウンドの再生
 	CApplication::GetSound()->Play(CSound::SOUND_BGM_RANKING);
 
@@ -87,6 +98,11 @@ void CRanking::Uninit()
 		m_pBg = nullptr;
 	}
 
+	if (m_pUi != nullptr)
+	{
+		m_pUi = nullptr;
+	}
+
 	if (m_pScore != nullptr)
 	{
 		for (int i = 0; i < MAX_RANKING; i++)
@@ -94,6 +110,9 @@ void CRanking::Uninit()
 			m_pScore = nullptr;
 		}
 	}
+
+	//オブジェクトの解放
+	CObject::ReleaseAll();
 }
 
 //--------------------------------------
@@ -113,7 +132,7 @@ void CRanking::Update()
 //--------------------------------------
 void CRanking::Draw()
 {
-	
+
 }
 
 //--------------------------------------
@@ -137,20 +156,31 @@ int CRanking::Get()
 //--------------------------------------
 void CRanking::BubbleSort(int nSort)
 {
+	m_nRankUpdate = -1;		//ソート番号を初期化
+
 	if (nSort >= m_SortData[COMPARE_RANKING])
 	{//受け取った値がランキングの値の一番下より大きかったら
 		m_SortData[COMPARE_RANKING] = nSort;										//一番下の値に代入する
 	}
+
 	for (int nInData = 0; nInData < COMPARE_RANKING; nInData++)						//比較する方
 	{
 		for (int nChange = nInData + 1; nChange < MAX_RANKING; nChange++)			//比較される方
 		{
 			if (m_SortData[nInData] < m_SortData[nChange])
 			{
-				int nBox = m_SortData[nInData];
-				m_SortData[nInData] = m_SortData[nChange];
-				m_SortData[nChange] = nBox;
+				int nBox = m_SortData[nInData];					//変数に入ってきた値を代入
+				m_SortData[nInData] = m_SortData[nChange];		//入ってきた値を変更する変数に代入
+				m_SortData[nChange] = nBox;						//変更した値を箱の変数に代入
 			}
+		}
+	}
+
+	for (int nComparisonData = 0; nComparisonData < MAX_RANKING; nComparisonData++)
+	{//値を比較する
+		if (m_SortData[nComparisonData] == nSort)
+		{//入れ替えたデータが入った値と同じなら
+			m_nRankUpdate = nComparisonData;	//更新データに該当する番号に代入する
 		}
 	}
 }
@@ -163,7 +193,7 @@ void CRanking::Save()
 	//ファイルに書き込む
 	FILE *pFile;        //ファイルポインタを宣言
 
-	//ファイルを開く
+						//ファイルを開く
 	pFile = fopen(FILE_NAME, "w");
 
 	if (pFile != nullptr)
@@ -210,28 +240,4 @@ void CRanking::Load()
 	{//ファイルが開けなかったとき
 		assert(false);				//プログラムを止める
 	}
-}
-
-//--------------------------------------
-//背景の情報取得
-//--------------------------------------
-CBg * CRanking::GetBg()
-{
-	return m_pBg;
-}
-
-//--------------------------------------
-//背景の情報取得
-//--------------------------------------
-CScore * CRanking::GetScore()
-{
-	return m_pScore;
-}
-
-//--------------------------------------
-//UIの情報取得
-//--------------------------------------
-CUi * CRanking::GetUi()
-{
-	return m_pUi;
 }

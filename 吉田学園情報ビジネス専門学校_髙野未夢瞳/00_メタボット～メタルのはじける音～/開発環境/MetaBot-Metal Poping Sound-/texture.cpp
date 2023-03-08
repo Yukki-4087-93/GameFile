@@ -27,6 +27,7 @@ const char* CTexture::s_FileName[] =
 	"Data/TEXTURE/reseut0999.png",				// リザルト（死亡時）
 	"Data/TEXTURE/Ranking_BG.png",				// ランキングの背景
 	"Data/TEXTURE/ranking_rank.png",			// ランキング
+	"Data/TEXTURE/Ranking_Now.png",				// ランキング
 	"Data/TEXTURE/sky.jpg",						// 空
 	"Data/TEXTURE/NewType.png",					// エフェクト用
 	"Data/TEXTURE/damage_insignificant.png",	// 軽微ダメージ用

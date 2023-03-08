@@ -101,7 +101,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*lpC
 	pApplecation = new CApplication;
 
 	// ‰Šú‰»ˆ—
-	if (FAILED(Init(hInstance,hWnd,FALSE)))
+	if (FAILED(Init(hInstance,hWnd,TRUE)))
 	{//‰Šú‰»‚ª¸”s‚µ‚½ê‡
 		return -1;
 	}
