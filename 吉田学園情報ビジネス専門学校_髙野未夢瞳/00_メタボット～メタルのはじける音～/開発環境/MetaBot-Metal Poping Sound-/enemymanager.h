@@ -31,6 +31,8 @@ public:
 	void Uninit();														//終了
 	void Update();														//更新
 	void Draw();														//描画
+	void SetSpawnEnemy(bool bspn) { m_bStopSpawn = bspn; }				//エネミー出現を設定する
+	bool GetSpawnEnemy() { return m_bStopSpawn; }						//エネミー出現情報を取得する
 
 /*エネミーを管理する関数*/
 public:
@@ -60,6 +62,7 @@ private:
 	int m_nNumber;														//エネミー番号を設定する変数
 	int m_nSpawnType;
 	int m_nChangeSpawn;
+	bool m_bStopSpawn;
 };
 
 #endif // !_ENEMYMANAGER_H_

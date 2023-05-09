@@ -165,6 +165,7 @@ void CScore::Update()
 			m_bSount)
 		{
 			CApplication::GetSound()->Play(CSound::SOUND_SE_WARNING);
+			CApplication::GetSound()->SetRate(CSound::SOUND_BGM_GAME,1.15f);
 			m_bSount = false;
 		}
 	}

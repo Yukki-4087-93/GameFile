@@ -1019,19 +1019,7 @@ void CEnemy::SelectAction()
 
 	if (m_objType == OBJTYPE_ENEMY_BOSS)
 	{
-		if (m_Scale.y >= pScale.y)
-		{
-			m_motionType = TYPE_IDLE;									//使用するモーションの設定
-			
-			NormalizationRotation();									//角度の正規化
-
-			MoveCalculation();											//移動量の計算
-		}
-
-		else
-		{
-			Chase();		//追撃設定
-		}
+		Chase();		//追撃設定
 	}
 
 	else

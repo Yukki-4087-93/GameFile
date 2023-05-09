@@ -699,6 +699,7 @@ void CPlayer::CollisionManager()
 			m_pos = m_posOld;						//位置を過去の位置に設定
 			CGame::GetEatDescription()->HitEatDescription();
 			CGame::GetScore()->SetStartTimer(true);
+			CGame::GetEnemyManager()->SetSpawnEnemy(true);
 			
 			//サウンドの再生
 			CApplication::GetSound()->Play(CSound::SOUND_BGM_GAME);

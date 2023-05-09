@@ -75,6 +75,7 @@ CEnemyManager::CEnemyManager()
 	m_nScaleCounter = 0;
 	m_nNumber = 0;
 	m_nSpawnType = 0;
+	m_bStopSpawn = false;
 }
 
 //--------------------------------------
@@ -96,6 +97,7 @@ HRESULT CEnemyManager::Init()
 	m_nRand_Spawn_Point = rand() % 4;				//ランダム値の初期値を設定
 	m_nChangeSpawn = rand() % 2;
 	m_nSpawnType = rand() % 4;
+	m_bStopSpawn = false;
 
 	return S_OK;
 }
@@ -119,7 +121,7 @@ void CEnemyManager::Update()
 {
 	m_nPopCounter++;
 
-	if (m_nPopCounter % 80 == 0)
+	if (m_nPopCounter % 20 == 0)
 	{
 		m_nRand_Spawn_Point = rand() % 4;									//ランダム値の初期値を設定
 
@@ -394,20 +396,23 @@ void CEnemyManager::SetBigSpawnPoint()
 //--------------------------------------
 void CEnemyManager::SetChangeSpawn()
 {
-	m_nChangeSpawn = rand() % 2;
-	
-	switch (m_nChangeSpawn)
+	if (m_bStopSpawn)
 	{
-	case 0:
-		SetSpawnPoint();
-		break;
+		m_nChangeSpawn = rand() % 2;
 
-	case 1:
-		SetAnotherPoint();
-		break;
+		switch (m_nChangeSpawn)
+		{
+		case 0:
+			SetSpawnPoint();
+			break;
 
-	default:
-		break;
+		case 1:
+			SetAnotherPoint();
+			break;
+
+		default:
+			break;
+		}
 	}
 }
 
